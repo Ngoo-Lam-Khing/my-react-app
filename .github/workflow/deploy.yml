@@ -26,9 +26,13 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: List dist contents
+        run: ls -la dist/ || dir dist  # 檢查 dist 內容，根據系統選擇 ls 或 dir
+
       # 5. 部署到 GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          force_orphan: true  # 強制創建新的 gh-pages 分支
